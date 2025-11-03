@@ -1,6 +1,6 @@
 # Scadenzario-hugotheme
 
-Ho creato questo tema perché avevo bisogno di visualizzare i dati delle fatture di locazione in una tabella HTML. Le mie necessità sono:
+Ispirato da [questo codice di Sabino](https://github.com/sabinomaggi/flexdumbbell/), ho creato questo tema perché avevo bisogno di visualizzare i dati delle fatture di locazione in una tabella HTML. Le mie necessità sono:
 
 - vedere le fatture dei contratti di locazione, con le colonne di inizio e fine del contratto, con quelle del cliente e del sito locato
 - vedere il periodo di riferimento di ciascuna fattura (se la fattura è mensile allora occupa 1 cella della tabella, se è semestrale ne occupa 6)
