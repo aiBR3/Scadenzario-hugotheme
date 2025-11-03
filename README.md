@@ -40,4 +40,4 @@ Riempito */assets/css/[main.css](assets/css/main.css)* e modificato *file?* per 
  	
 	```
 
-È possibile impostare *debug*, *debugInlinea* e *esempio* su `true` inn caso di bisogno.
+Sostituire `demo` con il nome del proprio file. È possibile impostare *debug*, *debugInlinea* e *esempio* su `true` in caso di bisogno.
