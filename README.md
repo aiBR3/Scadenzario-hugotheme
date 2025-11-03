@@ -1,6 +1,6 @@
 # Scadenzario-hugotheme
 
-Questo tema per Hugo è *quasi* uguale a quello vuoto che si crea con il comando `hugo new theme [name]` ([documentazione](https://gohugo.io/commands/hugo_new_theme/)).
+Questo tema per Hugo è *quasi* uguale a quello vuoto che si crea con il comando `hugo new theme ilmiotema` ([documentazione](https://gohugo.io/commands/hugo_new_theme/)).
 
 Ho aggiunto:
 
@@ -13,7 +13,7 @@ Ho creato questo tema perché avevo bisogno di visualizzare i dati delle fatture
 
 ## Istruzioni
 
-1. Creare un nuovo sito con `hugo new site nomescelto`
+1. Creare un nuovo sito con `hugo new site ilmiosito`
 2. Aggiungere questo tema nella cartella */themes/*
 	- scaricandolo a mano
 	- con `git init` e poi `git submodule add https://github.com/aiBR3/Scadenzario-hugotheme.git themes/scadenzario`
