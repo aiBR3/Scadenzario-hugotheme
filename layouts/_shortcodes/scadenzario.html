@@ -1,0 +1,380 @@
+{{- /* scadenzario.html */ -}}
+
+{{- $debug := false -}}
+{{- $debugInlinea := false -}}
+{{- $esempio := false -}}
+
+{{- /* il file indicato dall'utente */ -}}
+{{- $nomeDatabase := .Get 0 | default "demo" -}}
+{{- $database := index .Site.Data $nomeDatabase -}}
+
+{{- /* DATABASE ORDINATO per cliente (alfabetico) > decorrenza contratto (più vecchia) > fattura (più recente) */ -}}
+{{- $clientiOrdinati := slice -}}
+{{- range sort $database.clienti "cliente" -}}
+	{{- $contrattiOrdinati := slice -}}
+	{{- with .contratti -}}
+		{{- range sort . "decorrenza" -}}
+			{{- $fattureOrdinate := slice -}}
+			{{- with .fatture -}}
+				{{- /* calcolo lunghezza cella delle fatture */ -}}
+				{{- range sort . "fattInizio" "desc" -}}
+					{{- $inizio := time .fattInizio -}}
+					{{- $fine := time .fattFine -}}
+					{{- /* mesi inclusivi: (anni*12) + (meseFine - meseInizio) + 1 */ -}}
+					{{- $fattLunghezza := add ( add ( mul ( sub $fine.Year $inizio.Year ) 12 ) ( sub ( int $fine.Month ) ( int $inizio.Month ) ) ) 1 -}}
+					{{- /* mantieni tutti i campi originali + aggiungi fattLunghezza */ -}}
+					{{- $fattureOrdinate = $fattureOrdinate | append ( merge . ( dict "fattLunghezza" $fattLunghezza ) ) -}}
+				{{- end -}}
+			{{- end -}}
+			{{- $contrattiOrdinati = $contrattiOrdinati | append (dict
+					"decorrenza" .decorrenza
+					"istat" .istat
+					"scadenza" .scadenza
+					"siti" .siti
+					"fatture" $fattureOrdinate
+				) -}}
+		{{- end -}}
+	{{- end -}}
+	{{- $clientiOrdinati = $clientiOrdinati | append (dict
+			"cliente" .cliente
+			"contratti" $contrattiOrdinati
+		) -}}
+{{- end -}}
+{{- /* riassegna $database alla versione ordinata */ -}}
+{{- $database = dict "clienti" $clientiOrdinati -}}
+
+{{- /* se il file indicato è presente */ -}}
+{{- with $database -}}
+
+	{{- /* ELENCO DEGLI ANNI NECESSARI PER DISEGNARE LE COLONNE */ -}}
+	{{- /* scrive l'anno di oggi */ -}}
+	{{- $questoAnno := now.Year -}}
+	{{- /* crea la slice per tutti gli anni e aggiunge quello attuale */ -}}
+	{{- $tuttiAnni := slice $questoAnno -}}
+	{{- range $database.clienti -}}
+		{{- range .contratti -}}
+			{{- /* aggiunge gli anni di tutti i contratti */ -}}
+			{{- $tuttiAnni = $tuttiAnni | append ( int ( .decorrenza | time | dateFormat "2006" ) ) -}}
+			{{- range .fatture -}}
+				{{- /* aggiunge gli anni di tutte le fatture */ -}}
+				{{- $tuttiAnni = $tuttiAnni | append ( int ( .fattInizio | time | dateFormat "2006" ) ) -}}
+				{{- $tuttiAnni = $tuttiAnni | append ( int ( .fattFine | time | dateFormat "2006" ) ) -}}
+			{{- end -}}
+		{{- end -}}
+	{{- end -}}
+	{{- /* ordina gli anni */ -}}
+	{{- $tuttiAnni = sort $tuttiAnni "value" "desc" -}}
+	{{- /* rimuove i duplicati */ -}}
+	{{- $tuttiAnni = uniq $tuttiAnni -}}
+	
+	{{- /* nel calendario della tabella, la prima colonna a sinistra, che viene usata come partenza per disegnare le celle vuote */ -}}
+	{{- $meseSinistra := time (printf "%d-12-31" ( index $tuttiAnni 0 ) ) -}}
+	
+	{{- /* CALCOLO COLONNE TOTALI PER DISEGNARE <tfoot> */ -}}
+	{{- /* 5 colonne [cliente, scadenza, istat, decorrenza, sito] + (12 mesi x anni) */ -}}
+	{{- $totColonne := add 5 ( mul 12 ( len $tuttiAnni ) ) -}}
+	
+	{{- /* INIZIO TABELLA */ -}}
+	<div class="scadenzario">
+		<table>
+			<thead>
+				<tr>
+					<th rowspan="2">Cliente</th>
+					<th colspan="4">Contratto</th>
+					{{- /* una cella per anno */ -}}
+					{{- range $tuttiAnni -}}
+						<th class="anni" colspan="12">{{ . }}</th>
+					{{- end -}}
+				</tr>
+				<tr>
+					<th>Scadenza</th>
+					<th>ISTAT</th>
+					<th>Decorrenza</th>
+					<th>Sito</th>
+					{{- /* 12 celle per ogni anno */ -}}
+					{{- range $tuttiAnni -}}
+						<th class="mesi">12</th>
+						<th class="mesi">11</th>
+						<th class="mesi">10</th>
+						<th class="mesi">9</th>
+						<th class="mesi">8</th>
+						<th class="mesi">7</th>
+						<th class="mesi">6</th>
+						<th class="mesi">5</th>
+						<th class="mesi">4</th>
+						<th class="mesi">3</th>
+						<th class="mesi">2</th>
+						<th class="mesi">1</th>
+					{{- end -}}
+				</tr>
+			</thead>
+			<tbody>
+				{{- /* scrive variabili mentre fa il loop per ogni cliente */ -}}
+				{{- range $i, $clienti := $database.clienti -}}
+					{{- /* scrive variabili mentre fa il loop per ogni contratto */ -}}
+					{{- range $j, $contratti := $clienti.contratti -}}
+						{{- /* conta i siti dentro ciascun contratto */ -}}
+						{{- $numSiti := len $contratti.siti -}}
+						{{- /* scrive variabili mentre fa il loop per ogni sito */ -}}
+						{{- range $k, $sito := $contratti.siti -}}
+							<tr>
+								{{- /* la prima riga del contratto ha queste celle e se numSiti>1 allora queste occupano più righe nella tabella */ -}}
+								{{- if eq $k 0 -}}
+									<td class="cliente"{{ if gt $numSiti 1 }} rowspan="{{ $numSiti }}"{{ end }}>{{ if $debugInlinea }}<span class="debug">{{ $i }}</span> {{ end }}{{ $clienti.cliente }}</td>
+									<td class="scadenza"{{ if gt $numSiti 1 }} rowspan="{{ $numSiti }}"{{ end }}>{{ if $debugInlinea }}<span class="debug">{{ $j }}</span> {{ end }}{{ $contratti.scadenza }}</td>
+									<td class="istat"{{ if gt $numSiti 1 }} rowspan="{{ $numSiti }}"{{ end }}>{{ if $debugInlinea }}<span class="debug">{{ $j }}</span> {{ end }}{{ $contratti.istat }}</td>
+									<td class="decorrenza"{{ if gt $numSiti 1 }} rowspan="{{ $numSiti }}"{{ end }}>{{ if $debugInlinea }}<span class="debug">{{ $j }}</span> {{ end }}{{ $contratti.decorrenza }}</td>
+								{{- end -}}
+								<td class="sito">{{ if $debugInlinea }}<span class="debug">{{ $k }}({{ $numSiti }})</span> {{ end }}{{ $sito }}</td>
+								{{- /* la prima riga del contratto ha queste celle e se numSiti>1 allora queste occupano più righe nella tabella */ -}}
+								{{- if eq $k 0 -}}
+									{{- /* scrive variabili mentre fa il loop per ogni fattura */ -}}
+									{{- range $l, $fatture := $contratti.fatture -}}
+										{{- /* la fattura più recente a sinistra della tabella */ -}}
+										{{- if eq $l 0 -}}
+											{{- /* calcolo distanza in colonne da sinistra verso la fattura più recente a destra */ -}}
+											{{- $fattRecente := time $fatture.fattFine -}}
+											{{- $mesiVuotiSinistra := add ( mul ( sub $meseSinistra.Year $fattRecente.Year ) 12 ) ( sub ( int $meseSinistra.Month ) ( int $fattRecente.Month ) ) -}}
+											{{- range $mesiVuotiSinistra -}}
+												<td class="celleQuadrate"{{ if gt $numSiti 1 }} rowspan="{{ $numSiti }}"{{ end }}><span class="contenutoQuadrate"></span></td>
+											{{- end -}}
+											{{- /* disegna la fattura corrente */ -}}
+											<td class="celleQuadrate
+													{{- if eq $fatture.fattStato "acconto" }} fattAcconto
+													{{- else if eq $fatture.fattStato "bianca" }} fattBianca
+													{{- else if eq $fatture.fattStato "bozza" }} fattBozza
+													{{- else if eq $fatture.fattStato "pagata" }} fattPagata
+													{{- else if eq $fatture.fattStato "scaduta" }} fattScaduta
+													{{- end -}}
+												"
+												{{ if gt $fatture.fattLunghezza 1 }} colspan="{{ $fatture.fattLunghezza }}"{{ end }}
+												{{ if gt $numSiti 1 }} rowspan="{{ $numSiti }}"{{ end }}>
+												<span class="contenutoQuadrate">
+													{{ if $debugInlinea }}<span class="debug">{{ $l }}</span> {{ end }}{{ $fatture.fattEtichetta }}
+												</span>
+											</td>
+										{{- end -}}
+										{{- /* tutte le altre fatture a destra */ -}}
+										{{- if gt $l 0 -}}
+											{{- /* fine della fattura corrente (più vecchia) */ -}}
+											{{- $fineCorrente := time $fatture.fattFine -}}
+											{{- /* inizio della fattura precedente (più recente) */ -}}
+											{{- $inizioPrec := time ( index $contratti.fatture ( sub $l 1 ) ).fattInizio -}}
+											{{- /* mesi vuoti tra inizio fattura precedente e fine fattura corrente, esclusi i capi estremi */ -}}
+											{{- $mesiVuotiTra := sub ( add ( mul ( sub $inizioPrec.Year $fineCorrente.Year ) 12 ) ( sub ( int $inizioPrec.Month ) ( int $fineCorrente.Month ) ) ) 1 -}}
+											{{- if lt $mesiVuotiTra 0 }}{{ $mesiVuotiTra = 0 }}{{ end -}}
+											{{- /* disegna i mesi vuoti tra le due fatture */ -}}
+											{{- range $mesiVuotiTra -}}
+												<td class="celleQuadrate"{{ if gt $numSiti 1 }} rowspan="{{ $numSiti }}"{{ end }}><span class="contenutoQuadrate"></span></td>
+											{{- end -}}
+											{{- /* disegna la fattura corrente */ -}}
+											<td class="celleQuadrate
+													{{- if eq $fatture.fattStato "acconto" }} fattAcconto
+													{{- else if eq $fatture.fattStato "bianca" }} fattBianca
+													{{- else if eq $fatture.fattStato "bozza" }} fattBozza
+													{{- else if eq $fatture.fattStato "pagata" }} fattPagata
+													{{- else if eq $fatture.fattStato "scaduta" }} fattScaduta
+													{{- end -}}
+												"
+												{{ if gt $fatture.fattLunghezza 1 }} colspan="{{ $fatture.fattLunghezza }}"{{ end }}
+												{{ if gt $numSiti 1 }} rowspan="{{ $numSiti }}"{{ end }}>
+												<span class="contenutoQuadrate">
+													{{ if $debugInlinea }}<span class="debug">{{ $l }}</span> {{ end }}{{ $fatture.fattEtichetta }}
+												</span>
+											</td>
+										{{- end -}}
+									{{- end -}}
+								{{- end -}}
+							</tr>
+						{{- end -}}
+					{{- end -}}
+				{{- end -}}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="{{ $totColonne }}">Tabella generata <em>{{ now | dateFormat ":date_full" }}</em> alle <em>{{ now | dateFormat ":time_medium" }}</em></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	{{- /* FINE TABELLA */ -}}
+	
+	{{- /* elenco delle variabili utilizzate */ -}}
+	{{- if eq $debug true -}}
+		<div class="debug">
+			<code><-- DEBUG ---</code>
+			<br><code>$debug: {{ printf "%[1]v (%[1]T)" $debug }}</code>
+			<br><code>$debugInlinea: {{ printf "%[1]v (%[1]T)" $debugInlinea }}</code>
+			<br><code>$esempio: {{ printf "%[1]v (%[1]T)" $esempio }}</code>
+			<br>
+			<br><code>$nomeDatabase: {{ printf "%[1]v (%[1]T)" $nomeDatabase }}</code>
+			<br><details><summary><code>$database:</code></summary><pre>{{ debug.Dump $database }}</pre></details>
+			<br><code>$questoAnno: {{ printf "%[1]v (%[1]T)" $questoAnno }}</code>
+			<br><code>$tuttiAnni: {{ printf "%[1]v (%[1]T)" $tuttiAnni }}</code>
+			<br><code>$meseSinistra: {{ printf "%[1]v (%[1]T)" $meseSinistra }}</code>
+			<br><code>$totColonne: {{ printf "%[1]v (%[1]T)" $totColonne }}</code>
+			<br><code>--- DEBUG --></code>
+		</div>
+	{{- end -}}
+
+{{- /* se il file indicato all'inizio non è presente */ -}}
+{{- else -}}
+	<p><code>/data/{{ $nomeDatabase }}</code> non esiste.</p>
+{{- end -}}
+
+{{- /* esempio codice HTML finito */ -}}
+{{- if eq $esempio true -}}
+	<div class="debug">
+		<code><-- ESEMPIO HTML STATICO ---</code>
+		<div class="scadenzario">
+			<table>
+				<thead>
+					<tr>
+						<th rowspan="2">Cliente</th>
+						<th colspan="4">Contratto</th>
+						<th class="anni" colspan="12">2026</th>
+						<th class="anni" colspan="12">2025</th>
+						<th class="anni" colspan="12">2024</th>
+						<th class="anni" colspan="12">2023</th>
+					</tr>
+					<tr>
+						<th>Scadenza</th>
+						<th>ISTAT</th>
+						<th>Decorrenza</th>
+						<th>Sito</th>
+						<th class="mesi">12</th>
+						<th class="mesi">11</th>
+						<th class="mesi">10</th>
+						<th class="mesi">9</th>
+						<th class="mesi">8</th>
+						<th class="mesi">7</th>
+						<th class="mesi">6</th>
+						<th class="mesi">5</th>
+						<th class="mesi">4</th>
+						<th class="mesi">3</th>
+						<th class="mesi">2</th>
+						<th class="mesi">1</th>
+						<th class="mesi">12</th>
+						<th class="mesi">11</th>
+						<th class="mesi">10</th>
+						<th class="mesi">9</th>
+						<th class="mesi">8</th>
+						<th class="mesi">7</th>
+						<th class="mesi">6</th>
+						<th class="mesi">5</th>
+						<th class="mesi">4</th>
+						<th class="mesi">3</th>
+						<th class="mesi">2</th>
+						<th class="mesi">1</th>
+						<th class="mesi">12</th>
+						<th class="mesi">11</th>
+						<th class="mesi">10</th>
+						<th class="mesi">9</th>
+						<th class="mesi">8</th>
+						<th class="mesi">7</th>
+						<th class="mesi">6</th>
+						<th class="mesi">5</th>
+						<th class="mesi">4</th>
+						<th class="mesi">3</th>
+						<th class="mesi">2</th>
+						<th class="mesi">1</th>
+						<th class="mesi">12</th>
+						<th class="mesi">11</th>
+						<th class="mesi">10</th>
+						<th class="mesi">9</th>
+						<th class="mesi">8</th>
+						<th class="mesi">7</th>
+						<th class="mesi">6</th>
+						<th class="mesi">5</th>
+						<th class="mesi">4</th>
+						<th class="mesi">3</th>
+						<th class="mesi">2</th>
+						<th class="mesi">1</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="cliente">Mario Rossi</td>
+						<td class="scadenza">2029-10-01</td>
+						<td class="istat">100% ottobre</td>
+						<td class="decorrenza">2023-10-01</td>
+						<td class="sito">Firenze</td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate fattBianca" colspan="12"><span class="contenutoQuadrate">prossima (fare nuovo contratto, aggiornare ISTAT, bla bla bla bla)</span></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate fattPagata" colspan="12"><span class="contenutoQuadrate">F4/24</span></td>
+						<td class="celleQuadrate fattPagata" colspan="12"><span class="contenutoQuadrate">F1/23</span></td>
+					</tr>
+					<tr>
+						<td class="cliente">Mario Rossi</td>
+						<td class="scadenza">2028-12-31</td>
+						<td class="istat">100% gennaio</td>
+						<td class="decorrenza">2025-01-01</td>
+						<td class="sito">Siena</td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate"></td>
+						<td class="celleQuadrate fattBianca"><span class="contenutoQuadrate">prossima</span></td>
+					</tr>
+					<tr>
+						<td class="cliente" rowspan="4">Tizio Pinco Pallino</td>
+						<td class="scadenza" rowspan="4">2026-04-30</td>
+						<td class="istat" rowspan="4">75% settembre</td>
+						<td class="decorrenza" rowspan="4">2024-05-01</td>
+						<td class="sito">Arezzo</td>
+						<td class="celleQuadrate" rowspan="4"></td>
+						<td class="celleQuadrate" rowspan="4"></td>
+						<td class="celleQuadrate" rowspan="4"></td>
+						<td class="celleQuadrate" rowspan="4"></td>
+						<td class="celleQuadrate" rowspan="4"></td>
+						<td class="celleQuadrate" rowspan="4"></td>
+						<td class="celleQuadrate" rowspan="4"></td>
+						<td class="celleQuadrate" rowspan="4"></td>
+						<td class="celleQuadrate fattBozza" colspan="4" rowspan="4"><span class="contenutoQuadrate">bozza1</span></td>
+						<td class="celleQuadrate fattScaduta" colspan="4" rowspan="4"><span class="contenutoQuadrate">F3/25</span></td>
+						<td class="celleQuadrate fattScaduta" colspan="4" rowspan="4"><span class="contenutoQuadrate">F2/25</span></td>
+						<td class="celleQuadrate fattAcconto" colspan="4" rowspan="4"><span class="contenutoQuadrate">F1/25</span></td>
+						<td class="celleQuadrate fattPagata" colspan="4" rowspan="4"><span class="contenutoQuadrate">F3/23</span></td>
+						<td class="celleQuadrate fattPagata" colspan="4" rowspan="4"><span class="contenutoQuadrate">F2/23</span></td>
+					</tr>
+					<tr>
+						<td class="sito">Grosseto</td>
+					</tr>
+					<tr>
+						<td class="sito">Livorno</td>
+					</tr>
+					<tr>
+						<td class="sito">Pisa</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="53">Tabella generata</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+		<code>--- ESEMPIO HTML STATICO --></code>
+	</div>
+{{- end -}}
