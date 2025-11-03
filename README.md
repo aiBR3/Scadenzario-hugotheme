@@ -15,7 +15,7 @@ Riempito */assets/css/[main.css](assets/css/main.css)* e modificato *file?* per 
 2. Aggiungere questo tema nella cartella */themes/*
 	- scaricandolo a mano
 	- con `git init` e poi `git submodule add https://github.com/aiBR3/Scadenzario-hugotheme.git themes/scadenzario` ([documentazione](https://gohugo.io/getting-started/quick-start/))
-3. Configurare il sito per usare il tema, scrivendo in hugo.toml:
+3. Configurare il sito per usare il tema, scrivendo in *hugo.toml*:
 	```
 	theme = 'scadenzario'
 	```
