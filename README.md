@@ -1,6 +1,6 @@
 # Scadenzario-hugotheme
 
-Questo tema per Hugo è *quasi* uguale a quello vuoto che si crea con il comando `hugo new theme ilmiotema` ([documentazione](https://gohugo.io/commands/hugo_new_theme/)).
+Ho creato questo tema perché avevo bisogno di visualizzare i dati delle fatture di vendita in una tabella HTML. È *quasi* uguale a quello vuoto che si crea con il comando `hugo new theme ilmiotema` ([documentazione](https://gohugo.io/commands/hugo_new_theme/)).
 
 Ho solo aggiunto:
 
@@ -8,8 +8,6 @@ Ho solo aggiunto:
 - */layouts/_shortcodes/[scadenzario.html](layouts/_shortcodes/scadenzario.html)*
 
 Riempito */assets/css/[main.css](assets/css/main.css)* e modificato *file?* per ottenere una pagina bianca di partenza.
-
-Ho creato questo tema perché avevo bisogno di visualizzare i dati delle fatture di vendita in una tabella HTML.
 
 ## Istruzioni
 
