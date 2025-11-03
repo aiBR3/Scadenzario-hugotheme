@@ -2,11 +2,11 @@ baseURL = 'https://example.org/'
 languageCode = 'it-IT'
 title = 'Scadenzario'
 
-[menus]
-  [[menus.main]]
-    name = 'Home'
-    pageRef = '/'
-    weight = 10
+#[menus]
+#  [[menus.main]]
+#    name = 'Home'
+#    pageRef = '/'
+#    weight = 10
 
 #  [[menus.main]]
 #    name = 'Posts'
