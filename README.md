@@ -1,13 +1,22 @@
 # Scadenzario-hugotheme
 
-Ho creato questo tema perché avevo bisogno di visualizzare i dati delle fatture di vendita in una tabella HTML. È *quasi* uguale a quello vuoto che si crea con il comando `hugo new theme ilmiotema` ([documentazione](https://gohugo.io/commands/hugo_new_theme/)).
+Ho creato questo tema perché avevo bisogno di visualizzare i dati delle fatture di locazione in una tabella HTML. Le mie necessità sono:
 
-Ho aggiunto:
+- vedere le fatture dei contratti di locazione, con le colonne di inizio e fine del contratto, con quelle del cliente e del sito locato
+- vedere il periodo di riferimento di ciascuna fattura (se la fattura è mensile allora occupa 1 cella della tabella, se è semestrale ne occupa 6)
+- usare caratteri e celle a larghezza fissa
+- avere tutto in un'unica pagina, non importa quanto grande
+
+Questo tema è *quasi* uguale a quello vuoto che si crea con il comando `hugo new theme ilmiotema` ([documentazione](https://gohugo.io/commands/hugo_new_theme/)).
+
+Ho aggiunto solo:
 
 - */data/[demo.toml](data/demo.toml)*
 - */layouts/_shortcodes/[scadenzario.html](layouts/_shortcodes/scadenzario.html)*
 
 E riempito */assets/css/[main.css](assets/css/main.css)*.
+
+Lo shortcode *scadenzario.html* legge i dati dell'esempio *demo.toml* o quelli di un altro file TOML simile e renderizza la tabella HTML. Il file CSS fa il resto per l'estetica.
 
 ## Istruzioni
 
@@ -15,7 +24,8 @@ E riempito */assets/css/[main.css](assets/css/main.css)*.
 2. Aggiungere questo tema nella cartella */themes/*
 	- scaricandolo a mano
 	- con `git init` e poi `git submodule add https://github.com/aiBR3/Scadenzario-hugotheme.git themes/scadenzario` ([documentazione](https://gohugo.io/getting-started/quick-start/))
-3. Configurare il sito per usare il tema, scrivendo in *hugo.toml*:
+		- in futuro aggiornare il tema con `git submodule update --remote --merge`
+3. Configurare il sito per usare il tema, scrivendo in *hugo.toml* la riga:
 	```
 	theme = 'scadenzario'
 	```
