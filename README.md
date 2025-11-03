@@ -17,7 +17,7 @@ Ho creato questo tema perché avevo bisogno di visualizzare i dati delle fatture
 2. Aggiungere questo tema nella cartella */themes/*
 	- scaricandolo a mano
 	- con `git init` e poi `git submodule add https://github.com/aiBR3/Scadenzario-hugotheme.git themes/scadenzario`
-3. Aggiungere una pagina, per esempio */content/_index.md* con lo shortcode `scadenzario`:
+3. Aggiungere una pagina, per esempio */content/_index.md*, e scriverci lo shortcode `scadenzario`:
 	```
 	+++
 	draft = false
