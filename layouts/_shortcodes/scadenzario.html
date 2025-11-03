@@ -1,11 +1,33 @@
 {{- /* scadenzario.html */ -}}
+{{- /* Uso: scadenzario db="demo" debug=false debugInlinea=false esempio=false */ -}}
 
-{{- $debug := false -}}
-{{- $debugInlinea := false -}}
-{{- $esempio := false -}}
+{{/* 4 PARAMETRI */}}
+{{- if not .IsNamedParams -}}
+  {{- errorf `scadenzario usa la forma named: {{< scadenzario db="demo" debug=true debugInlinea=false esempio=true >}}` -}}
+{{- end -}}
+{{- $consentiti := slice "db" "debug" "debugInlinea" "esempio" -}}
+{{- range $k, $_ := .Params -}}
+  {{- if not (in $consentiti $k) -}}
+    {{- errorf (printf "scadenzario: parametro sconosciuto %q. Ammessi: db, debug, debugInlinea, esempio." $k) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if not (isset .Params "db") -}} {{- errorf "scadenzario: parametro obbligatorio db mancante" -}}{{- end -}}
+{{- if not (isset .Params "debug") -}} {{- errorf "scadenzario: parametro obbligatorio debug mancante" -}}{{- end -}}
+{{- if not (isset .Params "debugInlinea") -}} {{- errorf "scadenzario: parametro obbligatorio debugInlinea mancante" -}}{{- end -}}
+{{- if not (isset .Params "esempio") -}} {{- errorf "scadenzario: parametro obbligatorio esempio mancante" -}}{{- end -}}
+
+{{- $nomeDatabase := .Get "db" -}}
+{{- $debug := .Get "debug" -}}
+{{- $debugInlinea := .Get "debugInlinea" -}}
+{{- $esempio := .Get "esempio" -}}
+
+{{- if ne (printf "%T" $nomeDatabase) "string" -}} {{- errorf (printf "scadenzario: db deve essere stringa (es. db=\"demo\"). Trovato %T." $nomeDatabase) -}}{{- end -}}
+{{- if ne (printf "%T" $debug) "bool" -}} {{- errorf (printf "scadenzario: debug deve essere boolean (true/false) senza virgolette. Trovato %T." $debug) -}}{{- end -}}
+{{- if ne (printf "%T" $debugInlinea) "bool" -}} {{- errorf (printf "scadenzario: debugInlinea deve essere boolean (true/false) senza virgolette. Trovato %T." $debugInlinea) -}}{{- end -}}
+{{- if ne (printf "%T" $esempio) "bool" -}} {{- errorf (printf "scadenzario: esempio deve essere boolean (true/false) senza virgolette. Trovato %T." $esempio) -}}{{- end -}}
 
 {{- /* il file indicato dall'utente */ -}}
-{{- $nomeDatabase := .Get 0 | default "demo" -}}
 {{- $database := index .Site.Data $nomeDatabase -}}
 
 {{- /* DATABASE ORDINATO per cliente (alfabetico) > decorrenza contratto (più vecchia) > fattura (più recente) */ -}}
@@ -203,17 +225,16 @@
 	{{- if eq $debug true -}}
 		<div class="debug">
 			<code><-- DEBUG ---</code>
+			<br><code>$nomeDatabase: {{ printf "%[1]v (%[1]T)" $nomeDatabase }}</code>
 			<br><code>$debug: {{ printf "%[1]v (%[1]T)" $debug }}</code>
 			<br><code>$debugInlinea: {{ printf "%[1]v (%[1]T)" $debugInlinea }}</code>
-			<br><code>$esempio: {{ printf "%[1]v (%[1]T)" $esempio }}</code>
-			<br>
-			<br><code>$nomeDatabase: {{ printf "%[1]v (%[1]T)" $nomeDatabase }}</code>
-			<br><details><summary><code>$database:</code></summary><pre>{{ debug.Dump $database }}</pre></details>
+			<br><code>$esempio: {{ printf "%[1]v (%[1]T)" $esempio }}</code><br>
 			<br><code>$questoAnno: {{ printf "%[1]v (%[1]T)" $questoAnno }}</code>
 			<br><code>$tuttiAnni: {{ printf "%[1]v (%[1]T)" $tuttiAnni }}</code>
 			<br><code>$meseSinistra: {{ printf "%[1]v (%[1]T)" $meseSinistra }}</code>
-			<br><code>$totColonne: {{ printf "%[1]v (%[1]T)" $totColonne }}</code>
-			<br><code>--- DEBUG --></code>
+			<br><code>$totColonne: {{ printf "%[1]v (%[1]T)" $totColonne }}</code><br>
+			<br><details><summary><code>$database:</code></summary><pre>{{ debug.Dump $database }}</pre></details>
+			<code>--- DEBUG --></code>
 		</div>
 	{{- end -}}
 
