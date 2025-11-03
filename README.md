@@ -2,7 +2,7 @@
 
 Questo tema per Hugo è *quasi* uguale a quello vuoto che si crea con il comando `hugo new theme ilmiotema` ([documentazione](https://gohugo.io/commands/hugo_new_theme/)).
 
-Ho aggiunto:
+Ho solo aggiunto:
 
 - */data/[demo.toml](data/demo.toml)*
 - */layouts/_shortcodes/[scadenzario.html](layouts/_shortcodes/scadenzario.html)*
