@@ -14,10 +14,10 @@ Ho creato questo tema perché avevo bisogno di visualizzare i dati delle fatture
 ## Istruzioni
 
 1. Creare un nuovo sito con `hugo new site nomescelto`
-2. Aggiungere questa tema nella cartella */themes/*
+2. Aggiungere questo tema nella cartella */themes/*
 	- scaricandolo a mano
-	- o con `git init` e poi `git submodule add https://github.com/aiBR3/Scadenzario-hugotheme.git themes/scadenzario`
-3. Aggiungere /content/_index.md con questo contenuto:
+	- con `git init` e poi `git submodule add https://github.com/aiBR3/Scadenzario-hugotheme.git themes/scadenzario`
+3. Aggiungere una pagina, per esempio */content/_index.md* con lo shortcode `scadenzario`:
 	```
 	+++
 	draft = false
@@ -25,5 +25,4 @@ Ho creato questo tema perché avevo bisogno di visualizzare i dati delle fatture
 	
 	{{< scadenzario "demo" >}}
 	```
-
- 
+4. Lo shortcode mostrerà i dati di *demo.toml*.
