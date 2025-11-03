@@ -17,12 +17,13 @@ Ho creato questo tema perché avevo bisogno di visualizzare i dati delle fatture
 2. Aggiungere questo tema nella cartella */themes/*
 	- scaricandolo a mano
 	- con `git init` e poi `git submodule add https://github.com/aiBR3/Scadenzario-hugotheme.git themes/scadenzario`
-3. Aggiungere una pagina, per esempio */content/_index.md*, e scriverci lo shortcode `scadenzario`:
+3. Aggiungere una pagina, per esempio */content/_index.md*:
 	```
 	+++
 	draft = false
 	+++
 	
-	{{< scadenzario "demo" >}}
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ 	
 	```
-4. Lo shortcode mostrerà i dati di *demo.toml*.
+4. Invocare lo shortcode con `{{< scadenzario db="demo" debug=false debugInlinea=false esempio=false >}}` per vedere le fatture in *demo.toml*
