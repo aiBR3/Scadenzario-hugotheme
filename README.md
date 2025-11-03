@@ -7,7 +7,7 @@ Ho solo aggiunto:
 - */data/[demo.toml](data/demo.toml)*
 - */layouts/_shortcodes/[scadenzario.html](layouts/_shortcodes/scadenzario.html)*
 
-E riempito */assets/css/[main.css](assets/css/main.css)*
+Riempito */assets/css/[main.css](assets/css/main.css)* e modificato *file?* per ottenere una pagina bianca di partenza.
 
 Ho creato questo tema perché avevo bisogno di visualizzare i dati delle fatture di vendita in una tabella HTML.
 
