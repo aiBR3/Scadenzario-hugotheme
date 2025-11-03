@@ -44,3 +44,21 @@ E riempito */assets/css/[main.css](assets/css/main.css)*.
 
 ## Schema di funzionameno dello shortcode *scadenzario.html*
 
+- legge i 4 parametri impostati dall'utente (*db*, *debug*, *debugInlinea*, *esempio*)
+	- risponde con vari messaggi di errore in caso di problemi
+- legge i dati dal file TOML indicato dall'utente con `db=""`
+- ordina i dati per cliente (alfabetico) > data di decorrenza del contratto (dalla più vecchia) > giorno di inizio della fattura (dalla più recente)
+	- ad ogni fattura aggiunge il campo *fattLunghezza* e calcola quanti mesi/celle occupa ogni fattura
+- elenca tutti gli anni occupati dai contratti e dalle fatture
+	- rimuove i duplicati
+	- calcola quante colonne serviranno per disegnare la tabella
+- scrive la tabella HTML, una riga alla volta partendo dall'alto, una colonna alla volta partendo da sinistra
+	- le righe di intestazione con tutti gli anni e i mesi occupati dalle fatture
+	- una riga per ogni cliente
+		- una riga per ogni contratto dello stesso cliente
+			- una riga per ogni sito appartenente allo stesso contratto
+				- una cella vuota per ogni mese non occupato da fatture
+				- una cella per ogni fattura, può essere lunga 1 mese o più
+	- la riga finale del piè di pagina
+- se il debug è attivo, mostra alcune variabili e il loro tipo
+- se l'esempio è attivo, mostra la stessa tabella HTML della demo scritta manualmente, utile per confrontare l'HTML pulito con quello generato dallo shortcode.
