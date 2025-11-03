@@ -16,7 +16,7 @@ Ho creato questo tema perché avevo bisogno di visualizzare i dati delle fatture
 1. Creare un nuovo sito con `hugo new site ilmiosito`
 2. Aggiungere questo tema nella cartella */themes/*
 	- scaricandolo a mano
-	- con `git init` e poi `git submodule add https://github.com/aiBR3/Scadenzario-hugotheme.git themes/scadenzario`
+	- con `git init` e poi `git submodule add https://github.com/aiBR3/Scadenzario-hugotheme.git themes/scadenzario` ([documentazione](https://gohugo.io/getting-started/quick-start/))
 3. Aggiungere una pagina, per esempio */content/_index.md*:
 	```
 	+++
