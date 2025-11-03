@@ -41,3 +41,6 @@ E riempito */assets/css/[main.css](assets/css/main.css)*.
 	```
 
 È possibile impostare *debug*, *debugInlinea* e *esempio* su `true` in caso di bisogno.
+
+## Schema di funzionameno dello shortcode
+
