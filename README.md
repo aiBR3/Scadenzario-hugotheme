@@ -27,3 +27,13 @@ Ho creato questo tema perché avevo bisogno di visualizzare i dati delle fatture
  	
 	```
 4. Invocare lo shortcode con `{{< scadenzario db="demo" debug=false debugInlinea=false esempio=false >}}` per vedere le fatture in *demo.toml*
+	```
+	+++
+	draft = false
+	+++
+	
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+	
+	{{< scadenzario db="demo" debug=false debugInlinea=false esempio=false >}}
+ 	
+	```
