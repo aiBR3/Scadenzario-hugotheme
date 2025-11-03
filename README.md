@@ -37,3 +37,5 @@ Ho creato questo tema perché avevo bisogno di visualizzare i dati delle fatture
 	{{< scadenzario db="demo" debug=false debugInlinea=false esempio=false >}}
  	
 	```
+
+È possibile impostare *debug*, *debugInlinea* e *esempio* su `true` inn caso di bisogno.
