@@ -1,0 +1,112 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+	margin: 1rem;
+	overflow: scroll;
+}
+
+.scadenzario {
+	--quadrato: 30px;
+	background-color: rgba(255, 255, 255, 1);
+	font-family: monospace;
+	table-layout: fixed;
+	text-align: center;
+	vertical-align: middle;
+	table {
+		border-collapse: collapse;
+		border-style: none;
+	}
+	tr {
+		height: var(--quadrato);
+	}
+	thead {
+		background-color: rgba(240, 240, 240, 1);
+	}
+	th {
+		border-color: rgba(0, 0, 0, 1);
+		border-style: solid;
+		border-width: 1px;
+	}
+	td {
+		border-style: none;
+		padding: 5px;
+		text-align: left;
+		white-space: nowrap;
+	}
+	tfoot {
+		background-color: rgba(240, 240, 240, 1);
+		border-color: rgba(0, 0, 0, 1);
+		border-style: solid;
+		border-width: 1px;
+	}
+	.mesi{
+		max-width: var(--quadrato);
+		min-width: var(--quadrato);
+		width: var(--quadrato);
+	}
+	.celleQuadrate {
+		border-style: none;
+		overflow: hidden;
+		position: relative;
+		text-align: right;
+		text-overflow: clip;
+		white-space: nowrap;
+		max-width: var(--quadrato);
+		min-width: var(--quadrato);
+		.contenutoQuadrate {
+			display: inline-block;
+		}
+	}
+	.celleQuadrate:hover {
+		border-color: rgba(0, 0, 0, 1);
+		border-style: dotted;
+		border-width: 1px;
+		overflow: visible;
+		z-index: 10;
+		.contenutoQuadrate {
+			background-color: rgba(255, 255, 255, 1);
+			position: relative;
+			text-decoration: underline;
+		}
+	}
+	.fattAcconto {
+		background-color: rgba(255, 255, 0, 1);
+		border-color: rgba(0, 0, 0, 1);
+		border-style: solid;
+		border-width: 1px;
+	}
+	.fattBianca {
+		background-color: rgba(255, 255, 255, 1);
+		border-color: rgba(0, 0, 0, 1);
+		border-style: solid;
+		border-width: 1px;
+	}
+	.fattBozza {
+		background-color: rgba(0, 255, 255, 1);
+		border-color: rgba(0, 0, 0, 1);
+		border-style: solid;
+		border-width: 1px;
+	}
+	.fattPagata {
+		background-color: rgba(0, 255, 0, 1);
+		border-color: rgba(0, 0, 0, 1);
+		border-style: solid;
+		border-width: 1px;
+	}
+	.fattScaduta {
+		background-color: rgba(255, 0, 0, 1);
+		border-color: rgba(0, 0, 0, 1);
+		border-style: solid;
+		border-width: 1px;
+	}
+	.debug {
+		color: rgba(0, 0, 255, 1);
+	}
+}
+
+.debug {
+	background-color: rgba(254, 244, 156, 1);
+	margin-block: 3rem;
+}
