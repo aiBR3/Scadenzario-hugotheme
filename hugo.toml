@@ -1,6 +1,6 @@
 baseURL = 'https://example.org/'
-languageCode = 'it-IT'
-title = 'Scadenzario'
+languageCode = 'en-US'
+title = 'My New Hugo Site'
 
 [menus]
   [[menus.main]]
