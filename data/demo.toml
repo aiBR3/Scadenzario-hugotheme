@@ -1,0 +1,93 @@
+[[clienti]]
+cliente = "Mario Rossi"
+
+	[[clienti.contratti]]
+	decorrenza = "2023-10-01"
+	istat = "100% ottobre"
+	scadenza = "2029-09-30"
+	siti = [ "Firenze" ]
+	
+		[[clienti.contratti.fatture]]
+		fattEtichetta = "prossima (fare nuovo contratto, aggiornare ISTAT, bla bla bla bla)"
+		fattFine = "2026-10-30"
+		fattInizio = "2025-11-01"
+		fattStato = "bianca"
+		fattSito = [ "Firenze" ]
+	
+		[[clienti.contratti.fatture]]
+		fattEtichetta = "F4/24"
+		fattFine = "2025-09-30"
+		fattInizio = "2024-10-01"
+		fattStato = "pagata"
+		fattSito = [ "Firenze" ]
+	
+		[[clienti.contratti.fatture]]
+		fattEtichetta = "F1/23"
+		fattFine = "2024-09-30"
+		fattInizio = "2023-10-01"
+		fattStato = "pagata"
+		fattSito = [ "Firenze" ]
+	
+	[[clienti.contratti]]
+	decorrenza = "2025-01-01"
+	istat = "100% gennaio"
+	scadenza = "2028-12-31"
+	siti = [ "Siena" ]
+	
+		[[clienti.contratti.fatture]]
+		fattEtichetta = "prossima"
+		fattFine = "2025-01-31"
+		fattInizio = "2025-01-01"
+		fattStato = "bianca"
+		fattSito = [ "Siena" ]
+
+[[clienti]]
+cliente = "Tizio Pinco Pallino"
+
+	[[clienti.contratti]]
+	decorrenza = "2024-05-01"
+	istat = "75% settembre"
+	scadenza = "2026-04-30"
+	siti = [ "Arezzo", "Grosseto", "Livorno", "Pisa" ]
+	
+		[[clienti.contratti.fatture]]
+		fattEtichetta = "bozza1"
+		fattFine = "2026-04-30"
+		fattInizio = "2026-01-01"
+		fattStato = "bozza"
+		fattSito = [ "Arezzo", "Grosseto", "Livorno", "Pisa" ]
+	
+		[[clienti.contratti.fatture]]
+		fattEtichetta = "F3/25"
+		fattFine = "2025-12-31"
+		fattInizio = "2025-09-01"
+		fattStato = "scaduta"
+		fattSito = [ "Arezzo", "Grosseto", "Livorno", "Pisa" ]
+	
+		[[clienti.contratti.fatture]]
+		fattEtichetta = "F2/25"
+		fattFine = "2025-08-31"
+		fattInizio = "2025-05-01"
+		fattStato = "scaduta"
+		fattSito = [ "Arezzo", "Grosseto", "Livorno", "Pisa" ]
+	
+		[[clienti.contratti.fatture]]
+		fattEtichetta = "F1/25"
+		fattFine = "2025-04-30"
+		fattInizio = "2025-01-01"
+		fattStato = "acconto"
+		fattSito = [ "Arezzo", "Grosseto", "Livorno", "Pisa" ]
+	
+		[[clienti.contratti.fatture]]
+		fattEtichetta = "F3/24"
+		fattFine = "2024-12-31"
+		fattInizio = "2024-09-01"
+		fattStato = "pagata"
+		fattSito = [ "Arezzo", "Grosseto", "Livorno", "Pisa" ]
+	
+		[[clienti.contratti.fatture]]
+		fattEtichetta = "F2/23"
+		fattFine = "2024-08-31"
+		fattInizio = "2024-05-01"
+		fattStato = "pagata"
+		fattSito = [ "Arezzo", "Grosseto", "Livorno", "Pisa" ]
