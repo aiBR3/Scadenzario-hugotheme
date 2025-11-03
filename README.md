@@ -18,6 +18,8 @@ E riempito */assets/css/[main.css](assets/css/main.css)*.
 
 Lo shortcode *scadenzario.html* legge i dati dell'esempio *demo.toml* o quelli di un altro file TOML simile e renderizza la tabella HTML. Il file CSS fa il resto per l'estetica.
 
+![screenshot](demo.png)
+
 ## Istruzioni
 
 1. Creare un nuovo sito con `hugo new site ilmiosito`
