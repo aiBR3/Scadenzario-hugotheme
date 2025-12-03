@@ -46,6 +46,31 @@ body {
 		min-width: var(--quadrato);
 		width: var(--quadrato);
 	}
+	.cliente {
+	border-color: rgba(0, 0, 0, 1);
+	border-style: dotted;
+	border-width: 1px 0px 1px 0px;
+	}
+	.scadenza {
+	border-color: rgba(0, 0, 0, 1);
+	border-style: dotted;
+	border-width: 1px 0px 1px 0px;
+	}
+	.istat {
+	border-color: rgba(0, 0, 0, 1);
+	border-style: dotted;
+	border-width: 1px 0px 1px 0px;
+	}
+	.decorrenza {
+	border-color: rgba(0, 0, 0, 1);
+	border-style: dotted;
+	border-width: 1px 0px 1px 0px;
+	}
+	.sito {
+	border-color: rgba(0, 0, 0, 1);
+	border-style: dotted;
+	border-width: 1px 0px 1px 0px;
+	}
 	.celleQuadrate {
 		border-style: none;
 		overflow: hidden;
