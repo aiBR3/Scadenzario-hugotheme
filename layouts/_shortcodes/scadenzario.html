@@ -1,7 +1,7 @@
 {{- /* scadenzario.html */ -}}
 {{- /* uso: scadenzario db="demo" debug=false debugInlinea=false esempio=false */ -}}
 
-{{/* 4 PARAMETRI */}}
+{{- /* 4 PARAMETRI */ -}}
 {{- if not .IsNamedParams -}}
   {{- errorf `scadenzario usa la forma named: {{< scadenzario db="demo" debug=true debugInlinea=false esempio=true >}}` -}}
 {{- end -}}
