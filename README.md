@@ -7,14 +7,12 @@ Ispirato da [questo codice di Sabino](https://github.com/sabinomaggi/flexdumbbel
 - usare caratteri e celle a larghezza fissa
 - avere tutto in un'unica pagina, non importa quanto grande
 
-Questo tema è *quasi* uguale a quello vuoto che si crea con il comando `hugo new theme ilmiotema` ([documentazione](https://gohugo.io/commands/hugo_new_theme/)).
+Questo tema è *quasi* uguale a quello vuoto che si crea con il comando `hugo new theme ilmiotema` ([documentazione](https://gohugo.io/commands/hugo_new_theme/)). Le differenze sono:
 
-Ho aggiunto solo:
-
-- */data/[demo.toml](data/demo.toml)*
-- */layouts/_shortcodes/[scadenzario.html](layouts/_shortcodes/scadenzario.html)*
-
-E riempito */assets/css/[main.css](assets/css/main.css)*.
+- ho aggiunto */data/[demo.toml](data/demo.toml)*
+- ho aggiunto */layouts/_shortcodes/[scadenzario.html](layouts/_shortcodes/scadenzario.html)*
+- ho modificato */assets/css/[main.css](assets/css/main.css)*
+- ho eliminato */assets/js/main.js* (l'originale era comunque un segnaposto)
 
 Lo shortcode *scadenzario.html* legge i dati dell'esempio *demo.toml* o quelli di un altro file TOML simile e renderizza la tabella HTML. Il file CSS fa il resto per l'estetica.
 
