@@ -23,13 +23,13 @@ Lo shortcode *scadenzario.html* legge i dati dell'esempio *demo.toml* o quelli d
 1. Creare un nuovo sito con `hugo new site ilmiosito`
 2. Aggiungere questo tema nella cartella */themes/*
 	- scaricandolo a mano
-	- con `git init` e poi `git submodule add https://github.com/aiBR3/Scadenzario-hugotheme.git themes/scadenzario` ([documentazione](https://gohugo.io/getting-started/quick-start/))
+	- o con `git init` e poi `git submodule add https://github.com/aiBR3/Scadenzario-hugotheme.git themes/scadenzario` ([documentazione](https://gohugo.io/getting-started/quick-start/))
 		- in futuro aggiornare il tema con `git submodule update --remote --merge`
 3. Configurare il sito per usare il tema, scrivendo in *hugo.toml* la riga:
 	```
 	theme = 'scadenzario'
 	```
-5. Aggiungere una pagina, per esempio */content/_index.md*:
+5. Aggiungere una pagina, per esempio quella principale */content/_index.md*:
 	```
 	+++
 	draft = false
@@ -38,7 +38,7 @@ Lo shortcode *scadenzario.html* legge i dati dell'esempio *demo.toml* o quelli d
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit.
  	
 	```
-6. Invocare lo shortcode con `{{< scadenzario db="demo" debug=false debugInlinea=false esempio=false >}}` per vedere le fatture in *demo.toml*
+6. Aggiungere lo shortcode alla pagina con `{{< scadenzario db="demo" debug=false debugInlinea=false esempio=false >}}` per vedere le fatture elencate in *demo.toml*
 	```
 	+++
 	draft = false
