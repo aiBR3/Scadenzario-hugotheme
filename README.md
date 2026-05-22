@@ -13,7 +13,7 @@ Questo tema è *quasi* uguale a quello vuoto che si crea con il comando `hugo ne
 - ho aggiunto */layouts/_shortcodes/[scadenzario.html](layouts/_shortcodes/scadenzario.html)*
 - ho modificato */assets/css/[main.css](assets/css/main.css)*
 
-Lo shortcode *scadenzario.html* legge i dati dall'esempio *demo.toml*, o quelli di un altro file TOML simile, e renderizza la tabella HTML. Il file CSS fa il resto per l'estetica.
+Lo shortcode *scadenzario.html* legge i dati dall'esempio *demo.toml*, o da un altro file TOML simile, e renderizza la tabella HTML. Il file CSS fa il resto per l'estetica.
 
 ![screenshot](demo.png)
 
