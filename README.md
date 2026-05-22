@@ -51,7 +51,7 @@ Lo shortcode *scadenzario.html* legge i dati dall'esempio *demo.toml*, o da un a
 
 Sostituire `db="demo"` con il nome del proprio file TOML.
 
-È possibile impostare *debug*, *debugInlinea* e *esempio* su `true` in caso di bisogno.
+È possibile impostare `debug`, `debugInlinea` e `esempio` su `true` in caso di bisogno.
 
 ## Schema di funzionameno dello shortcode *scadenzario.html*
 
