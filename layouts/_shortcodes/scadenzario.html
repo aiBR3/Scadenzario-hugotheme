@@ -90,6 +90,10 @@
 	{{- $tuttiAnni = sort $tuttiAnni "value" "desc" -}}
 	{{- /* rimuove i duplicati */ -}}
 	{{- $tuttiAnni = uniq $tuttiAnni -}}
+	{{- /* ricostruisce la sequenza senza buchi: dal massimo al minimo anno trovato */ -}}
+	{{- $annoMax := index $tuttiAnni 0 -}}
+	{{- $annoMin := index $tuttiAnni (sub (len $tuttiAnni) 1) -}}
+	{{- $tuttiAnni = seq $annoMax $annoMin -}}
 	
 	{{- /* nel calendario della tabella, la prima colonna a sinistra, che viene usata come partenza per disegnare le celle vuote */ -}}
 	{{- $meseSinistra := time (printf "%d-12-31" ( index $tuttiAnni 0 ) ) -}}
