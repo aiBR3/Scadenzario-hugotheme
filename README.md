@@ -58,7 +58,7 @@ Sostituire `db="demo"` con il nome del proprio file TOML.
 - legge i 4 parametri impostati dall'utente (*db*, *debug*, *debugInlinea*, *esempio*)
 	- risponde con vari messaggi di errore in caso di problemi
 - legge i dati dal file TOML indicato dall'utente con `db=""`
-- ordina i dati per cliente (alfabetico) > data di decorrenza del contratto (dalla più vecchia) > giorno di inizio della fattura (dalla più recente)
+- ordina i dati per *cliente (alfabetico) > data di decorrenza del contratto (dalla più vecchia) > giorno di inizio della fattura (dalla più recente)*
 	- ad ogni fattura aggiunge il campo *fattLunghezza* e calcola quanti mesi/celle occupa nella tabella
 - elenca tutti gli anni occupati dai contratti e dalle fatture
 	- rimuove i duplicati
