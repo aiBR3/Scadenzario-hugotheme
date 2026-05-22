@@ -12,9 +12,8 @@ Questo tema è *quasi* uguale a quello vuoto che si crea con il comando `hugo ne
 - ho aggiunto */data/[demo.toml](data/demo.toml)*
 - ho aggiunto */layouts/_shortcodes/[scadenzario.html](layouts/_shortcodes/scadenzario.html)*
 - ho modificato */assets/css/[main.css](assets/css/main.css)*
-- ho eliminato */assets/js/main.js* (l'originale era comunque un segnaposto)
 
-Lo shortcode *scadenzario.html* legge i dati dell'esempio *demo.toml* o quelli di un altro file TOML simile e renderizza la tabella HTML. Il file CSS fa il resto per l'estetica.
+Lo shortcode *scadenzario.html* legge i dati dall'esempio *demo.toml*, o quelli di un altro file TOML simile, e renderizza la tabella HTML. Il file CSS fa il resto per l'estetica.
 
 ![screenshot](demo.png)
 
@@ -23,8 +22,8 @@ Lo shortcode *scadenzario.html* legge i dati dell'esempio *demo.toml* o quelli d
 1. Creare un nuovo sito con `hugo new site ilmiosito`
 2. Aggiungere questo tema nella cartella */themes/*
 	- scaricandolo a mano
-	- o con `git init` e poi `git submodule add https://github.com/aiBR3/Scadenzario-hugotheme.git themes/scadenzario` ([documentazione](https://gohugo.io/getting-started/quick-start/))
-		- in futuro aggiornare il tema con `git submodule update --remote --merge`
+	- oppure con `git init` e poi `git submodule add https://github.com/aiBR3/Scadenzario-hugotheme.git themes/scadenzario` ([documentazione](https://gohugo.io/getting-started/quick-start/))
+		- per aggiornare il submodule/tema si usa `git submodule update --remote --merge`
 3. Configurare il sito per usare il tema, scrivendo in *hugo.toml* la riga:
 	```
 	theme = 'scadenzario'
@@ -38,7 +37,7 @@ Lo shortcode *scadenzario.html* legge i dati dell'esempio *demo.toml* o quelli d
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit.
  	
 	```
-6. Aggiungere lo shortcode alla pagina con `{{< scadenzario db="demo" debug=false debugInlinea=false esempio=false >}}` per vedere le fatture elencate in *demo.toml*
+6. Aggiungere lo shortcode alla stessa pagina con `{{< scadenzario db="demo" debug=false debugInlinea=false esempio=false >}}` per vedere le fatture elencate in *demo.toml*
 	```
 	+++
 	draft = false
@@ -50,6 +49,8 @@ Lo shortcode *scadenzario.html* legge i dati dell'esempio *demo.toml* o quelli d
  	
 	```
 
+Sostituire `db="demo"` con il nome del proprio file TOML.
+
 È possibile impostare *debug*, *debugInlinea* e *esempio* su `true` in caso di bisogno.
 
 ## Schema di funzionameno dello shortcode *scadenzario.html*
@@ -58,10 +59,10 @@ Lo shortcode *scadenzario.html* legge i dati dell'esempio *demo.toml* o quelli d
 	- risponde con vari messaggi di errore in caso di problemi
 - legge i dati dal file TOML indicato dall'utente con `db=""`
 - ordina i dati per cliente (alfabetico) > data di decorrenza del contratto (dalla più vecchia) > giorno di inizio della fattura (dalla più recente)
-	- ad ogni fattura aggiunge il campo *fattLunghezza* e calcola quanti mesi/celle occupa ogni fattura
+	- ad ogni fattura aggiunge il campo *fattLunghezza* e calcola quanti mesi/celle occupa nella tabella
 - elenca tutti gli anni occupati dai contratti e dalle fatture
 	- rimuove i duplicati
-	- calcola quante colonne serviranno per disegnare la tabella
+	- calcola quante colonne servono per disegnare la tabella
 - scrive la tabella HTML, una riga alla volta partendo dall'alto, una colonna alla volta partendo da sinistra
 	- le righe di intestazione con tutti gli anni e i mesi occupati dalle fatture
 	- una riga per ogni cliente
