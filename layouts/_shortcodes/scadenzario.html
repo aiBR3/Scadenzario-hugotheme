@@ -75,8 +75,10 @@
 	{{- $tuttiAnni := slice $questoAnno -}}
 	{{- range $database.clienti -}}
 		{{- range .contratti -}}
-			{{- /* aggiunge gli anni di tutti i contratti */ -}}
-			{{- $tuttiAnni = $tuttiAnni | append ( int ( .decorrenza | time | dateFormat "2006" ) ) -}}
+			{{- /* aggiunge gli anni di tutti i contratti (solo se decorrenza non è vuota) */ -}}
+			{{- if .decorrenza -}}
+				{{- $tuttiAnni = $tuttiAnni | append ( int ( .decorrenza | time | dateFormat "2006" ) ) -}}
+			{{- end -}}
 			{{- range .fatture -}}
 				{{- /* aggiunge gli anni di tutte le fatture */ -}}
 				{{- $tuttiAnni = $tuttiAnni | append ( int ( .fattInizio | time | dateFormat "2006" ) ) -}}
@@ -143,9 +145,9 @@
 								{{- /* la prima riga del contratto ha queste celle e se numSiti>1 allora queste occupano più righe nella tabella */ -}}
 								{{- if eq $k 0 -}}
 									<td class="cliente"{{ if gt $numSiti 1 }} rowspan="{{ $numSiti }}"{{ end }}>{{ if $debugInlinea }}<span class="debug">{{ $i }}</span> {{ end }}{{ $clienti.cliente }}</td>
-									<td class="scadenza"{{ if gt $numSiti 1 }} rowspan="{{ $numSiti }}"{{ end }}>{{ if $debugInlinea }}<span class="debug">{{ $j }}</span> {{ end }}{{ $contratti.scadenza }}</td>
-									<td class="istat"{{ if gt $numSiti 1 }} rowspan="{{ $numSiti }}"{{ end }}>{{ if $debugInlinea }}<span class="debug">{{ $j }}</span> {{ end }}{{ $contratti.istat }}</td>
-									<td class="decorrenza"{{ if gt $numSiti 1 }} rowspan="{{ $numSiti }}"{{ end }}>{{ if $debugInlinea }}<span class="debug">{{ $j }}</span> {{ end }}{{ $contratti.decorrenza }}</td>
+									<td class="scadenza"{{ if gt $numSiti 1 }} rowspan="{{ $numSiti }}"{{ end }}>{{ if $debugInlinea }}<span class="debug">{{ $j }}</span> {{ end }}{{ if $contratti.scadenza }}{{ $contratti.scadenza }}{{ else }}n.d.{{ end }}</td>
+									<td class="istat"{{ if gt $numSiti 1 }} rowspan="{{ $numSiti }}"{{ end }}>{{ if $debugInlinea }}<span class="debug">{{ $j }}</span> {{ end }}{{ if $contratti.istat }}{{ $contratti.istat }}{{ else }}n.d.{{ end }}</td>
+									<td class="decorrenza"{{ if gt $numSiti 1 }} rowspan="{{ $numSiti }}"{{ end }}>{{ if $debugInlinea }}<span class="debug">{{ $j }}</span> {{ end }}{{ if $contratti.decorrenza }}{{ $contratti.decorrenza }}{{ else }}n.d.{{ end }}</td>
 								{{- end -}}
 								<td class="sito">{{ if $debugInlinea }}<span class="debug">{{ $k }}({{ $numSiti }})</span> {{ end }}{{ $sito }}</td>
 								{{- /* la prima riga del contratto ha queste celle e se numSiti>1 allora queste occupano più righe nella tabella */ -}}
