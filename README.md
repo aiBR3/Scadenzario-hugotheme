@@ -71,5 +71,6 @@ Sostituire `db="demo"` con il nome del proprio file TOML.
 				- una cella vuota per ogni mese non occupato da fatture
 				- una cella per ogni fattura, può essere lunga 1 mese o più
 	- la riga finale del piè di pagina
-- se il debug è attivo, mostra alcune variabili e il loro tipo
-- se l'esempio è attivo, mostra la stessa tabella HTML della demo scritta manualmente, utile per confrontare l'HTML pulito con quello generato dallo shortcode.
+- se `debug=true`, mostra alcune variabili e il loro tipo
+- se `debugInlinea=true`, mostra alcune informazioni dentro alle celle
+- se `esempio=true`, mostra la stessa tabella HTML che si otterrebbe leggendo *demo.toml*, ma scritta in HTML statico, non generato dallo shortcode
