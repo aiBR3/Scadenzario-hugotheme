@@ -28,7 +28,7 @@
 {{- if ne (printf "%T" $esempio) "bool" -}} {{- errorf (printf "scadenzario: esempio deve essere boolean (true/false) senza virgolette. Trovato %T." $esempio) -}}{{- end -}}
 
 {{- /* il file indicato dall'utente */ -}}
-{{- $database := index .Site.Data $nomeDatabase -}}
+{{- $database := index hugo.Data $nomeDatabase -}}
 
 {{- /* DATABASE ORDINATO per cliente (alfabetico) > decorrenza contratto (più vecchia) > fattura (più recente) */ -}}
 {{- $clientiOrdinati := slice -}}
