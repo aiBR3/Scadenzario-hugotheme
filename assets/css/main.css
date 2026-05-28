@@ -41,6 +41,16 @@ body {
 		text-align: left;
 		white-space: nowrap;
 	}
+	td:hover {
+		border-color: rgba(0, 0, 0, 1);
+		border-style: dotted;
+		border-width: 1px;
+		overflow: visible;
+		z-index: 5;
+		background-color: rgba(255, 255, 255, 1);
+		position: relative;
+		text-decoration: underline;
+	}
 	tfoot {
 		background-color: rgba(240, 240, 240, 1);
 		border-color: rgba(0, 0, 0, 1);
@@ -89,18 +99,6 @@ body {
 		z-index: 0;
 		.contenutoQuadrate {
 			display: inline-block;
-		}
-	}
-	td:hover {
-		border-color: rgba(0, 0, 0, 1);
-		border-style: dotted;
-		border-width: 1px;
-		overflow: visible;
-		z-index: 5;
-		.contenutoQuadrate {
-			background-color: rgba(255, 255, 255, 1);
-			position: relative;
-			text-decoration: underline;
 		}
 	}
 	.fattAcconto {
