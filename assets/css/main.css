@@ -28,7 +28,7 @@ body {
 		z-index: 10;
 	}
 	th {
-		border-color: rgba(0, 0, 0, 1);
+		border-color: rgb(0, 0, 0);
 		border-style: solid;
 		border-width: 1px;
 	}
@@ -42,7 +42,7 @@ body {
 		white-space: nowrap;
 	}
 	td:hover {
-		border-color: rgba(0, 0, 0, 1);
+		border-color: rgb(0, 0, 0);
 		border-style: dotted;
 		border-width: 1px;
 		overflow: visible;
@@ -55,7 +55,7 @@ body {
 	}
 	tfoot {
 		background-color: rgba(240, 240, 240, 1);
-		border-color: rgba(0, 0, 0, 1);
+		border-color: rgb(0, 0, 0);
 		border-style: solid;
 		border-width: 1px;
 	}
@@ -65,27 +65,27 @@ body {
 		width: var(--quadrato);
 	}
 	.cliente {
-	border-color: rgba(0, 0, 0, 1);
+	border-color: rgb(0, 0, 0);
 	border-style: dotted;
 	border-width: 1px 0px 1px 0px;
 	}
 	.scadenza {
-	border-color: rgba(0, 0, 0, 1);
+	border-color: rgb(0, 0, 0);
 	border-style: dotted;
 	border-width: 1px 0px 1px 0px;
 	}
 	.istat {
-	border-color: rgba(0, 0, 0, 1);
+	border-color: rgb(0, 0, 0);
 	border-style: dotted;
 	border-width: 1px 0px 1px 0px;
 	}
 	.decorrenza {
-	border-color: rgba(0, 0, 0, 1);
+	border-color: rgb(0, 0, 0);
 	border-style: dotted;
 	border-width: 1px 0px 1px 0px;
 	}
 	.sito {
-	border-color: rgba(0, 0, 0, 1);
+	border-color: rgb(0, 0, 0);
 	border-style: dotted;
 	border-width: 1px 0px 1px 0px;
 	}
@@ -105,31 +105,31 @@ body {
 	}
 	.fattAcconto {
 		background-color: rgba(255, 255, 0, 0.5);
-		border-color: rgba(0, 0, 0, 1);
+		border-color: rgb(0, 0, 0);
 		border-style: solid;
 		border-width: 1px;
 	}
 	.fattBianca {
 		background-color: rgba(255, 255, 255, 0.5);
-		border-color: rgba(0, 0, 0, 1);
+		border-color: rgb(0, 0, 0);
 		border-style: solid;
 		border-width: 1px;
 	}
 	.fattBozza {
 		background-color: rgba(0, 255, 255, 0.5);
-		border-color: rgba(0, 0, 0, 1);
+		border-color: rgb(0, 0, 0);
 		border-style: solid;
 		border-width: 1px;
 	}
 	.fattPagata {
 		background-color: rgba(0, 255, 0, 0.5);
-		border-color: rgba(0, 0, 0, 1);
+		border-color: rgb(0, 0, 0);
 		border-style: solid;
 		border-width: 1px;
 	}
 	.fattScaduta {
 		background-color: rgba(255, 0, 0, 0.5);
-		border-color: rgba(0, 0, 0, 1);
+		border-color: rgb(0, 0, 0);
 		border-style: solid;
 		border-width: 1px;
 	}
