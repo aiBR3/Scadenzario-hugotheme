@@ -46,11 +46,11 @@ body {
 		border-style: dotted;
 		border-width: 1px;
 		overflow: visible;
+		text-decoration: underline;
 		z-index: 5;
 		.contenutoQuadrate {
 			background-color: rgba(255, 255, 255, 1);
 			position: relative;
-			text-decoration: underline;
 		}
 	}
 	tfoot {
