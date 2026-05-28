@@ -86,6 +86,7 @@ body {
 		white-space: nowrap;
 		max-width: var(--quadrato);
 		min-width: var(--quadrato);
+		z-index: 0;
 		.contenutoQuadrate {
 			display: inline-block;
 		}
