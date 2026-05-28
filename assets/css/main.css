@@ -47,10 +47,11 @@ body {
 		border-width: 1px;
 		overflow: visible;
 		z-index: 5;
-		position: relative;
-		text-decoration: underline;
 		.contenutoQuadrate {
 			background-color: rgba(255, 255, 255, 1);
+			position: relative;
+			text-decoration: underline;
+		}
 	}
 	tfoot {
 		background-color: rgba(240, 240, 240, 1);
