@@ -23,6 +23,8 @@ body {
 	}
 	thead {
 		background-color: rgba(240, 240, 240, 1);
+		position: sticky;
+		top: 0;
 	}
 	th {
 		border-color: rgba(0, 0, 0, 1);
