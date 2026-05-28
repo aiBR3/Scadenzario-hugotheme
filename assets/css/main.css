@@ -21,16 +21,14 @@ body {
 	tr {
 		height: var(--quadrato);
 	}
-	thead {
+	.barra {
 		background-color: rgba(240, 240, 240, 1);
-		position: sticky;
-		top: 0;
-		z-index: 10;
-	}
-	th {
 		border-color: rgba(0, 0, 0, 1);
 		border-style: solid;
 		border-width: 1px;
+		position: sticky;
+		top: 0;
+		z-index: 10;
 	}
 	tbody {
 		z-index: 0;
